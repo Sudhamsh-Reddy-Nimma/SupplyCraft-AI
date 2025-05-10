@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Supply Chain Impact Analyzer</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        .entry {
+            border: 1px solid #ccc;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+        }
+        .entry input {
+            display: block;
+            margin-bottom: 10px;
+            width: 100%;
+        }
+        .add-btn {
+            background-color: #007BFF;
+            color: white;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>SupplyCraft AI: Supply Chain Impact Analyzer</h1>
+    <p>Enter raw material details including origin, destination, and route.</p>
+    
+    <form action="/analyze" method="POST" id="supplyChainForm">
+        <div id="input-section">
+            <!-- Default entry shown initially -->
+        </div>
+
+        <button type="button" class="add-btn" onclick="addEntry()">+ Add More Data</button>
+        <br>
+        <button type="submit">Analyze Supply Chain</button>
+    </form>
+</div>
+
+<template id="entry-template">
+    <div class="entry">
+        <label>Raw Material Name:</label>
+        <input type="text" name="material[]" placeholder="e.g., Cotton" required>
+
+        <label>Source Place:</label>
+        <input type="text" name="source[]" placeholder="e.g., Punjab" required>
+
+        <label>Destination:</label>
+        <input type="text" name="destination[]" placeholder="e.g., Coimbatore" required>
+
+        <label>Route (with NH numbers if possible):</label>
+        <input type="text" name="route[]" placeholder="e.g., NH-44 via Mumbai, Pune, Hyderabad" required>
+
+        <label>Date of travel:</label>
+        <input type="text" name="date[]" placeholder="dd-mm-yyyy" required>
+    </div>
+</template>
+
+<script>
+    function addEntry() {
+        const container = document.getElementById('input-section');
+        const template = document.getElementById('entry-template').content.cloneNode(true);
+        container.appendChild(template);
+    }
+
+    window.onload = addEntry; // load one entry by default
+</script>
+
+</body>
+</html>
+
+
